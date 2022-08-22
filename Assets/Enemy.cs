@@ -5,8 +5,76 @@ using UnityEngine;
 //the different states of the enemy
 public enum EnemyState { idle, walk, attack, stagger }
 
-public abstract class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
+    [SerializeField] private int health = 1;
+    [SerializeField] private int dmg = 5;
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Transform target; //player
+    [SerializeField] private float moveSpeed = 5; //move speed
+    [SerializeField] private float rotationSpeed = 5; //speed of turning
+    private bool inArea = false;
+
+    //If/ when we add an effect when the enemy dies
+    //public GameObject deathEffect;
+
+    void Update()
+    {
+        //transform.rotation = Quaternion.Slerp(transform.rotation, 
+         //   Quaternion.LookRotation(target.transform.position - transform.position), rotationSpeed * Time.deltaTime);
+
+        Vector2 direction = new Vector2(
+            target.position.x - transform.position.x,
+            target.position.y - transform.position.y
+        );
+
+        transform.up = direction;
+
+        if (inArea)
+        {
+            transform.position += transform.up * Time.deltaTime * moveSpeed;
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+
+        if(health <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        //uncomment if we add a death effect
+        //Instantiate(deathEffect, transform.position, Quaternion.identity);
+
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "ChaseRadius")
+        {
+            inArea = true;
+        }
+
+        if(collision.tag == "Player")
+        {
+            collision.GetComponent<PlayerHealth>().TakeDamage(dmg);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            inArea = false;
+        }
+    }
+
     /*
     public EnemyState currState;    //the current state of the enemy
     public FloatValue maxHealth;    //the float value that holds the max health

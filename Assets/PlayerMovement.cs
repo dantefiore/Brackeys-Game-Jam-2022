@@ -45,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        faceMouse();
+
         change.x = Input.GetAxisRaw("Horizontal"); //gets the input for the x direction
         change.y = Input.GetAxisRaw("Vertical"); //gets the input for the y direction
 
@@ -63,6 +65,19 @@ public class PlayerMovement : MonoBehaviour
         {
             currHealth.RuntimeValue = heartContainers.RuntimeValue * 2f;
         }*/
+    }
+
+    void faceMouse()
+    {
+        Vector3 mousePos = Input.mousePosition;
+        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+
+        Vector2 direction = new Vector2(
+            mousePos.x - transform.position.x, 
+            mousePos.y - transform.position.y
+        );
+
+        transform.up = direction;
     }
 
     //plays the attack animation
