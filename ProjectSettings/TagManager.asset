@@ -6,11 +6,13 @@ TagManager:
   tags:
   - Enemy
   - ChaseRadius
+  - Bullet
+  - Ground
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Bullet
   - Water
   - UI
   - 

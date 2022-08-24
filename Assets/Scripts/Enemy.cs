@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform target; //player
     [SerializeField] private float moveSpeed = 5; //move speed
     [SerializeField] private float rotationSpeed = 5; //speed of turning
-    private bool inArea = false;
+    public bool inArea = false;
 
     //If/ when we add an effect when the enemy dies
     //public GameObject deathEffect;
@@ -22,18 +22,19 @@ public class Enemy : MonoBehaviour
     {
         //transform.rotation = Quaternion.Slerp(transform.rotation, 
          //   Quaternion.LookRotation(target.transform.position - transform.position), rotationSpeed * Time.deltaTime);
-
-        Vector2 direction = new Vector2(
-            target.position.x - transform.position.x,
-            target.position.y - transform.position.y
-        );
-
-        transform.up = direction;
-
-        if (inArea)
+        if(target != null)
         {
-            transform.position += transform.up * Time.deltaTime * moveSpeed;
+            Vector2 direction = new Vector2(
+                target.position.x - transform.position.x,
+                target.position.y - transform.position.y
+            );
+
+            transform.up = direction;
+
+            if (inArea)
+                transform.position += transform.up * Time.deltaTime * moveSpeed;
         }
+        
     }
 
     public void TakeDamage(int damage)
@@ -69,7 +70,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "ChaseRadius")
         {
             inArea = false;
         }

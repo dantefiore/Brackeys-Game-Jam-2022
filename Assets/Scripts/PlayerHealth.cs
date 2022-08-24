@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
         //uncomment if we add a death effect
         //Instantiate(deathEffect, transform.position, Quaternion.identity);
 
+        SceneManager.LoadScene("Game Over");
         Destroy(gameObject);
     }
 }

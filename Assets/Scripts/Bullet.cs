@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb.velocity = (transform.up * speed);
+        rb.velocity = transform.up * speed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -22,6 +22,11 @@ public class Bullet : MonoBehaviour
             enemy.TakeDamage(dmg);
         }
 
-        Destroy(gameObject);
+        if (collision.tag != "Player" && !collision.isTrigger)
+        {
+            Debug.Log(collision.name);
+            Destroy(gameObject);
+        }
+        
     }
 }
