@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Gun : MonoBehaviour
 {
+    [Header("Shooting")]
     [SerializeField] private List<Transform> firePoint;
     [SerializeField] private GameObject bullet;
-    [SerializeField] private GameObject temp;
-    private Transform tempRot;
 
     // Update is called once per frame
     void Update()
@@ -24,5 +24,7 @@ public class Gun : MonoBehaviour
         {
             Instantiate(bullet, firePoint[i].position, firePoint[i].rotation);
         }
+
+        //CameraShake.Instance.Shake(magnitude, duration);
     }
 }
