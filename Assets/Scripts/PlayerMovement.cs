@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public Collider2D triggerCollider; //the players hurt box
     public SpriteRenderer mySprite; //the characters sprite
     public Vector2 facingDir = Vector2.down;
+    public bool walking;
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
         {
             UpdateAnimAndMove(); //changes the characters animations
         }
+
+        
 
         /*//checks the health to see if it went over the max health
         if (currHealth.RuntimeValue > heartContainers.RuntimeValue * 2f)
