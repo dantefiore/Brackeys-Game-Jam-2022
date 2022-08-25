@@ -13,15 +13,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 change; //the change in position for the player
     //public Animator anim; //controls what animations play
     public PlayerState currentState;
-
-    
-    [Header("I Frames")]
-    public Color flashColor; //the color the player flashes when hit
-    public Color regColor;  //the characters normal colors
-    public float flashDur; //how long the flashing lasts
-    public int numOfFlash;  //the number of flashes
-    public Collider2D triggerCollider; //the players hurt box
-    public SpriteRenderer mySprite; //the characters sprite
     public Vector2 facingDir = Vector2.down;
     public bool walking;
 
@@ -30,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     {
         currentState = PlayerState.walk; //sets the player state
         //anim = GetComponent<Animator>(); //finish setting up the animator
+
+        speed *= Time.deltaTime;
 
         //for the animations and which way the character should be facing
         //anim.SetFloat("moveX", 0);
@@ -51,12 +44,7 @@ public class PlayerMovement : MonoBehaviour
         change.x = Input.GetAxisRaw("Horizontal"); //gets the input for the x direction
         change.y = Input.GetAxisRaw("Vertical"); //gets the input for the y direction
 
-        //checks what the player is pressing an attack button and if they are able to attack
-        if (Input.GetButtonDown("Attack") && currentState != PlayerState.attack && currentState != PlayerState.stagger)
-        {
-            StartCoroutine(AttackCo()); //starts the attack function
-        }
-        else if (currentState == PlayerState.walk || currentState == PlayerState.idle)
+        if (currentState == PlayerState.walk || currentState == PlayerState.idle)
         {
             UpdateAnimAndMove(); //changes the characters animations
         }
@@ -81,23 +69,6 @@ public class PlayerMovement : MonoBehaviour
         );
 
         transform.up = direction;
-    }
-
-    //plays the attack animation
-    private IEnumerator AttackCo()
-    {
-        //anim.SetBool("attacking", true);    //to play the attack animation
-        currentState = PlayerState.attack;
-        yield return null; //waits 1 frame
-        //anim.SetBool("attacking", false);
-        yield return new WaitForSeconds(0.3f);  //runs for 1/3 of a second
-
-        //if the button is pressed while in the interact state
-        if(currentState != PlayerState.interact)
-        {
-            //changes the player to the walk state
-            currentState = PlayerState.walk;
-        }
     }
 
     //Changes the animations for what should be played when
@@ -127,47 +98,7 @@ public class PlayerMovement : MonoBehaviour
     {
         change.Normalize();
         myRigidBody.MovePosition(
-            transform.position + change * speed * Time.deltaTime
+            transform.position + change * speed
          );
-    }
-
-    //how much damage and how long the player is in knock for
-    public void Knock(float knockTime)
-    {
-        StartCoroutine(KnockCo(knockTime));
-
-    }
-
-    //moving the character back
-    private IEnumerator KnockCo(float knockTime)
-    {
-        if (myRigidBody != null)
-        {
-            StartCoroutine(FlashCo());
-            yield return new WaitForSeconds(knockTime);
-            myRigidBody.velocity = Vector2.zero;
-
-            currentState = PlayerState.idle;
-            myRigidBody.velocity = Vector2.zero;
-        }
-    }
-
-    //makes the Invulnerability frames
-    private IEnumerator FlashCo()
-    {
-        //turns off the players hurtbox
-        triggerCollider.enabled = false;
-
-        //plays the flashing animations
-        for (int i = 0; i < numOfFlash; i++)
-        {
-            mySprite.color = flashColor;
-            yield return new WaitForSeconds(flashDur);
-            mySprite.color = regColor;
-            yield return new WaitForSeconds(flashDur);
-        }
-
-        //turns the hurtbox back on
-        triggerCollider.enabled = true;
     }
 }

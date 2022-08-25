@@ -15,7 +15,7 @@ TagManager:
   - Bullet
   - Water
   - UI
-  - 
+  - Trees
   - 
   - 
   - 
@@ -44,4 +44,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Trees
+    uniqueID: 264280075
     locked: 0

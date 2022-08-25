@@ -21,17 +21,18 @@ public class PlayerHealth : MonoBehaviour
 
         if (health <= 0)
         {
-            movement.enabled = false;
+            //movement.enabled = false;
+            Die();
             levelChanger.GetComponent<LevelChanger>().FadeToLevel(1);
         }
     }
 
-    /*void Die()
+    void Die()
     {
         //uncomment if we add a death effect
         //Instantiate(deathEffect, transform.position, Quaternion.identity);
 
         SceneManager.LoadScene("Game Over");
         Destroy(gameObject);
-    }*/
+    }
 }
