@@ -5,21 +5,27 @@ using UnityEngine;
 //the different states of the enemy
 public enum EnemyState { idle, walk, attack, stagger }
 
-public class Enemy : MonoBehaviour
+public class Enemy : Animal
 {
+    [Header("Health")]
     [SerializeField] private int health = 1;
     [SerializeField] private int dmg = 5;
+
+    [Header("Chase")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform target; //player
-    [SerializeField] private float moveSpeed = 5; //move speed
+    [SerializeField] private float moveSpeed; //move speed
     [SerializeField] private float rotationSpeed = 5; //speed of turning
-    public bool inArea = false;
+    [SerializeField] private bool inArea = false;
 
     //If/ when we add an effect when the enemy dies
     //public GameObject deathEffect;
 
     void Update()
     {
+        if(!inArea)
+            Move();
+
         //transform.rotation = Quaternion.Slerp(transform.rotation, 
          //   Quaternion.LookRotation(target.transform.position - transform.position), rotationSpeed * Time.deltaTime);
         if(target != null)
@@ -32,7 +38,7 @@ public class Enemy : MonoBehaviour
             transform.up = direction;
 
             if (inArea)
-                transform.position += transform.up * Time.deltaTime * moveSpeed;
+                transform.position += transform.up * (Time.deltaTime * moveSpeed);
         }
         
     }
@@ -75,6 +81,7 @@ public class Enemy : MonoBehaviour
             inArea = false;
         }
     }
+
 
     /*
     public EnemyState currState;    //the current state of the enemy
