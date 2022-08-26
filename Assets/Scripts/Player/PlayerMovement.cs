@@ -16,11 +16,18 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 facingDir = Vector2.down;
     public bool walking;
 
+    [Header("Crouching")]
+    [SerializeField] private CircleCollider2D chaseRadius;
+    [SerializeField] private float radius;
+    private float origRadius;
+
     // Start is called before the first frame update
     void Start()
     {
         currentState = PlayerState.walk; //sets the player state
         //anim = GetComponent<Animator>(); //finish setting up the animator
+
+        origRadius = chaseRadius.radius;
 
         speed *= Time.deltaTime;
 
@@ -49,7 +56,10 @@ public class PlayerMovement : MonoBehaviour
             UpdateAnimAndMove(); //changes the characters animations
         }
 
-        
+        if (Input.GetButton("Crouch"))
+            chaseRadius.radius = radius;
+        else
+            chaseRadius.radius = origRadius;
 
         /*//checks the health to see if it went over the max health
         if (currHealth.RuntimeValue > heartContainers.RuntimeValue * 2f)

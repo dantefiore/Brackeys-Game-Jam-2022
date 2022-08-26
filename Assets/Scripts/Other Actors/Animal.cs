@@ -28,12 +28,17 @@ public class Animal : MonoBehaviour
     public void Move()
     {
         //looking at point
+        /*
         Vector3 dir = points[nextPointIndex].position - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        */
 
         //moving to waypoint
         transform.position = Vector2.MoveTowards(transform.position, points[nextPointIndex].position, step);
+
+        if (this.gameObject.GetComponent<Animator>() != null)
+            Animate(transform, points[nextPointIndex]);
 
         if (transform.position == points[nextPointIndex].position)
             nextPointIndex += 1;
@@ -41,6 +46,20 @@ public class Animal : MonoBehaviour
         if(nextPointIndex >= points.Count)
         {
             nextPointIndex = 0;
+        }
+    }
+
+    void Animate(Transform character, Transform nextPoint)
+    {
+        float facingDir = nextPoint.position.x - character.position.x;
+
+        if(facingDir >=0)
+        {
+            character.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else
+        {
+            character.localScale = new Vector3(-1f, 1f, 1f);
         }
     }
 }
