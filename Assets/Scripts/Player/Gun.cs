@@ -8,6 +8,12 @@ public class Gun : MonoBehaviour
     [Header("Shooting")]
     [SerializeField] private List<Transform> firePoint;
     [SerializeField] private GameObject bullet;
+    [SerializeField] private Animator cameraShake;
+
+    private void Start()
+    {
+        cameraShake = cameraShake.gameObject.GetComponent<Animator>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -25,6 +31,7 @@ public class Gun : MonoBehaviour
             Instantiate(bullet, firePoint[i].position, firePoint[i].rotation);
         }
 
+        cameraShake.SetTrigger("shake");
         //CameraShake.Instance.Shake(magnitude, duration);
     }
 }
