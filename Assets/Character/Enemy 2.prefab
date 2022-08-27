@@ -149,7 +149,7 @@ MonoBehaviour:
   health: 10
   dmg: 5
   rb: {fileID: 3680475027147869887}
-  target: {fileID: 0}
+  target: {fileID: 5670560841723837208, guid: 1667f791a7cb5a84d80fe0e640708d98, type: 3}
   moveSpeed: 3
   rotationSpeed: 5
   inArea: 0

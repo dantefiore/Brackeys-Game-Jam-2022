@@ -10,6 +10,10 @@ public class Gun : MonoBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] private Animator cameraShake;
 
+    [Header("Flash")]
+    [SerializeField] private GameObject flash;
+    [SerializeField] private float flashDur;
+
     private void Start()
     {
         cameraShake = cameraShake.gameObject.GetComponent<Animator>();
@@ -31,7 +35,16 @@ public class Gun : MonoBehaviour
             Instantiate(bullet, firePoint[i].position, firePoint[i].rotation);
         }
 
+        StartCoroutine(Flash());
+
         cameraShake.SetTrigger("shake");
         //CameraShake.Instance.Shake(magnitude, duration);
+    }
+
+    IEnumerator Flash()
+    {
+        flash.gameObject.SetActive(true);
+        yield return new WaitForSeconds(flashDur);
+        flash.gameObject.SetActive(false);
     }
 }

@@ -62,7 +62,7 @@ public class Dialogue : MonoBehaviour
         }
         else
         {
-            other.GetComponent<LevelChanger3>().FadeToLevel(0);
+            other.GetComponent<LevelChanger3>().FadeToLevel(5);
         }
     }
 }
