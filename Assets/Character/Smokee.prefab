@@ -95,7 +95,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3680475027147869874}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -146,8 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f5d24a57fd8dd74d90174ec84224543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: []
-  speed: 0.5
   health: 10
   dmg: 5
   rb: {fileID: 3680475027147869887}
@@ -155,6 +153,7 @@ MonoBehaviour:
   moveSpeed: 3
   rotationSpeed: 5
   inArea: 0
+  points: []
 --- !u!199 &6638990788860505454
 ParticleSystemRenderer:
   serializedVersion: 6

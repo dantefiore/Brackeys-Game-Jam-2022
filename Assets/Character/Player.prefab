@@ -279,7 +279,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5670560841723837189}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -356,7 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dfcd5dbe5384474c96136c4f0d9114a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 0.05
   myRigidBody: {fileID: 5670560841723837210}
   currentState: 0
   facingDir: {x: 0, y: -1}
@@ -682,6 +682,8 @@ MonoBehaviour:
   - {fileID: 5670560842475508396}
   bullet: {fileID: 4593176595736021511, guid: 54ed863dca6f9254baa71d58e9751dfd, type: 3}
   cameraShake: {fileID: 0}
+  flash: {fileID: 0}
+  flashDur: 0
 --- !u!1 &5670560843153838786
 GameObject:
   m_ObjectHideFlags: 0

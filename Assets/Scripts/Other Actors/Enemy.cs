@@ -5,7 +5,7 @@ using UnityEngine;
 //the different states of the enemy
 public enum EnemyState { idle, walk, attack, stagger }
 
-public class Enemy : Animal
+public class Enemy : MonoBehaviour
 {
     [Header("Health")]
     [SerializeField] private int health = 1;
@@ -14,12 +14,23 @@ public class Enemy : Animal
     [Header("Chase")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform target; //player
-    [SerializeField] private float moveSpeed; //move speed
+    public float moveSpeed; //move speed
     [SerializeField] private float rotationSpeed = 5; //speed of turning
     [SerializeField] private bool inArea = false;
 
+    [Header("Way Points")]
+    public List<Transform> points;
+    public int nextPointIndex = 0;
+    public float step;
+
     //If/ when we add an effect when the enemy dies
     //public GameObject deathEffect;
+
+    public virtual void Start()
+    {
+        step = moveSpeed;
+        transform.position = points[nextPointIndex].position;
+    }
 
     void Update()
     {
@@ -38,9 +49,23 @@ public class Enemy : Animal
             transform.up = direction;
 
             if (inArea)
-                transform.position += transform.up * (Time.deltaTime * moveSpeed);
+                transform.position += transform.up * moveSpeed;
         }
         
+    }
+
+    public void Move()
+    {
+        //moving to waypoint
+        transform.position = Vector2.MoveTowards(transform.position, points[nextPointIndex].position, step);
+
+        if (transform.position == points[nextPointIndex].position)
+            nextPointIndex += 1;
+
+        if (nextPointIndex >= points.Count)
+        {
+            nextPointIndex = 0;
+        }
     }
 
     public void TakeDamage(int damage)
@@ -53,7 +78,7 @@ public class Enemy : Animal
         }
     }
 
-    void Die()
+    public virtual void Die()
     {
         //uncomment if we add a death effect
         //Instantiate(deathEffect, transform.position, Quaternion.identity);
@@ -81,87 +106,4 @@ public class Enemy : Animal
             inArea = false;
         }
     }
-
-
-    /*
-    public EnemyState currState;    //the current state of the enemy
-    public FloatValue maxHealth;    //the float value that holds the max health
-    public float health;    //the current health of the enemy
-    public string enemyName;    //the name of the enemy
-    public int baseAttack;  //the melee attack of the enemy
-    public float moveSpeed; //the movement speed of the enemy
-    public GameObject deathEffect;  //the animation that plays when the enemy dies
-    public Vector2 homePos; //the position it starts out in
-    public LootTable thisLoot;  //the loot it drops when defeated
-    public SignalSender deathSignal;    //the signal it sends when it is defeated
-    public GenericHealth healthScript;  //the health
-
-    private void Awake()
-    {   //when the player is in range
-        homePos = transform.position;
-        health = maxHealth.initialVal;
-    }
-
-    private void OnEnable()
-    {   //when the enemy is activated, the position is set
-        transform.position = homePos;
-    }
-
-    public virtual void TakeDamage(float dmg)
-    {
-        //when the enemy takes damage, subtract the health
-        health -= dmg;
-         
-        //if the health is less then or equal to 0
-        if(healthScript.currHealth <= 0)
-        {
-            DeathEffect();  //make the death effect
-            makeLoot(); //spawn loot
-            deathSignal.Raise();    //raise the signal
-            this.gameObject.SetActive(false);   //deactivate the enemy
-
-        }
-    }
-
-    public void DeathEffect()
-    {
-        if(deathEffect != null)
-        {
-            //spawns the death effect and plays its animation
-            GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
-            Destroy(effect, 0.5f);
-        }
-    }
-
-    public void makeLoot()
-    {
-        //choose random loot and spawn it
-        if (thisLoot != null)
-        {
-            PowerUp curr = thisLoot.LootDrop();
-
-            if(curr != null)
-            {
-                Instantiate(curr.gameObject, transform.position, Quaternion.identity);
-            }
-        }
-    }
-
-    public void Knock(Rigidbody2D myRigidBody, float knockTime)
-    {
-        StartCoroutine(KnockCo(myRigidBody, knockTime));
-    }
-
-    public virtual IEnumerator KnockCo(Rigidbody2D myRigidBody, float knockTime)
-    {
-        if (myRigidBody != null)
-        {
-            //pushes back the enemy
-            yield return new WaitForSeconds(knockTime);
-            myRigidBody.velocity = Vector2.zero;
-
-            currState = EnemyState.idle;
-            myRigidBody.velocity = Vector2.zero;
-        }
-    }*/
 }

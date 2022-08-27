@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
         origRadius = chaseRadius.radius;
 
-        speed *= Time.deltaTime;
+        //speed *= Time.deltaTime;
 
         //for the animations and which way the character should be facing
         //anim.SetFloat("moveX", 0);

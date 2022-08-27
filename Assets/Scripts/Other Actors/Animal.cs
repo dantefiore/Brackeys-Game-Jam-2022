@@ -15,7 +15,7 @@ public class Animal : MonoBehaviour
 
     private void Start()
     {
-        step = speed * Time.deltaTime;  //so the speed is the same on any device
+        step = speed; //* Time.deltaTime;  //so the speed is the same on any device
         transform.position = points[nextPointIndex].position;
     }
 
@@ -27,13 +27,6 @@ public class Animal : MonoBehaviour
 
     public void Move()
     {
-        //looking at point
-        /*
-        Vector3 dir = points[nextPointIndex].position - transform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        */
-
         //moving to waypoint
         transform.position = Vector2.MoveTowards(transform.position, points[nextPointIndex].position, step);
 
