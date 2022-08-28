@@ -9,6 +9,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private List<Transform> firePoint;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Animator cameraShake;
+    [SerializeField] private AudioSource sound;
 
     [Header("Flash")]
     [SerializeField] private GameObject flash;
@@ -36,6 +37,7 @@ public class Gun : MonoBehaviour
         }
 
         StartCoroutine(Flash());
+        sound.Play();
 
         cameraShake.SetTrigger("shake");
         //CameraShake.Instance.Shake(magnitude, duration);

@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Scenes/ShotgunSection.unity
     guid: 57bb6fe4de80d674fafd9b4c9ab7ad1c
+  - enabled: 1
+    path: Assets/Scenes/Scenes/WinScreen.unity
+    guid: 34ef2dcc3704785418d0ddbec8fc97ef
+  - enabled: 1
+    path: Assets/Scenes/Scenes/Credits.unity
+    guid: a9def6697dfbfe14889c99102b16f142
   m_configObjects: {}

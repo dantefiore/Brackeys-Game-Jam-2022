@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CircleCollider2D chaseRadius;
     [SerializeField] private float radius;
     private float origRadius;
+    private float origSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         //anim = GetComponent<Animator>(); //finish setting up the animator
 
         origRadius = chaseRadius.radius;
-
+        origSpeed = speed;
         //speed *= Time.deltaTime;
 
         //for the animations and which way the character should be facing
@@ -57,9 +58,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (Input.GetButton("Crouch"))
+        {
             chaseRadius.radius = radius;
+            speed = speed / 2;
+        }
         else
+        {
             chaseRadius.radius = origRadius;
+            speed = origSpeed;
+        }
 
         /*//checks the health to see if it went over the max health
         if (currHealth.RuntimeValue > heartContainers.RuntimeValue * 2f)

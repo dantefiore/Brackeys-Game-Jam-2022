@@ -154,6 +154,8 @@ MonoBehaviour:
   rotationSpeed: 5
   inArea: 0
   points: []
+  nextPointIndex: 0
+  step: 0
 --- !u!199 &6638990788860505454
 ParticleSystemRenderer:
   serializedVersion: 6

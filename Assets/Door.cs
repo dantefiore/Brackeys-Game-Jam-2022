@@ -9,10 +9,10 @@ public class Door : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player" && col.isTrigger)
         {
             Debug.Log("This worked");
-            other.GetComponent<LevelChanger>().FadeToLevel(3);
+            SceneManager.LoadScene("TherapyScene");
         }
     }
 }

@@ -7,7 +7,6 @@ public class HowToPlayMenu : MonoBehaviour
 {
     public void BackButton()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("MainMenuScene");
     }
-
 }
