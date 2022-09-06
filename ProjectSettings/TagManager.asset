@@ -8,6 +8,7 @@ TagManager:
   - ChaseRadius
   - Bullet
   - Ground
+  - PlayerRoom
   layers:
   - Default
   - TransparentFX

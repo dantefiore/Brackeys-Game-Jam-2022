@@ -9,7 +9,7 @@ public class Room : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && collision.isTrigger)
+        if (collision.CompareTag("PlayerRoom") && collision.isTrigger)
         {
             //vCam.SetActive(true);
             vCam.m_BoundingShape2D = this.GetComponent<PolygonCollider2D>();

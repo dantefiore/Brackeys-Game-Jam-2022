@@ -20,7 +20,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CircleCollider2D chaseRadius;
     [SerializeField] private float radius;
     private float origRadius;
-    private float origSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
         //anim = GetComponent<Animator>(); //finish setting up the animator
 
         origRadius = chaseRadius.radius;
-        origSpeed = speed;
         //speed *= Time.deltaTime;
 
         //for the animations and which way the character should be facing
@@ -49,30 +47,22 @@ public class PlayerMovement : MonoBehaviour
 
         faceMouse();
 
-        change.x = Input.GetAxisRaw("Horizontal"); //gets the input for the x direction
-        change.y = Input.GetAxisRaw("Vertical"); //gets the input for the y direction
-
-        if (currentState == PlayerState.walk || currentState == PlayerState.idle)
+        if (!Input.anyKey)
         {
-            UpdateAnimAndMove(); //changes the characters animations
-        }
-
-        if (Input.GetButton("Crouch"))
-        {
-            chaseRadius.radius = radius;
-            speed = speed / 2;
+            myRigidBody.velocity = Vector3.zero;
         }
         else
         {
-            chaseRadius.radius = origRadius;
-            speed = origSpeed;
-        }
+            change.x = Input.GetAxisRaw("Horizontal"); //gets the input for the x direction
+            change.y = Input.GetAxisRaw("Vertical"); //gets the input for the y direction
 
-        /*//checks the health to see if it went over the max health
-        if (currHealth.RuntimeValue > heartContainers.RuntimeValue * 2f)
-        {
-            currHealth.RuntimeValue = heartContainers.RuntimeValue * 2f;
-        }*/
+            if (currentState == PlayerState.walk || currentState == PlayerState.idle)
+            {
+                UpdateAnimAndMove(); //changes the characters animations
+            }
+
+        }
+        
     }
 
     void faceMouse()
